@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('foto_perfil');
+            $table->string('estatus'); // S=Si, N=No
             $table->rememberToken();
             $table->timestamps();
         });
@@ -35,6 +39,14 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        User::create([
+            'name' => 'Arturo Peña Martinez',
+            'email' => 'arturo.pena@pjedomex.gob.mx',
+            'password' => Hash::make('123456789'),
+            'foto_perfil' => 'imagenes/anonymous.png',
+            'estatus' => 'S',
+        ]);
     }
 
     /**
